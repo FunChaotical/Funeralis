@@ -29,7 +29,7 @@ local function getDeathMusicForFaction(factionID)
 end
 
 function PLUGIN:InitializedPlugins()
-    for _, faction in pairs(ix.faction.indices) do
+    for _, faction in ipairs(ix.faction.indices) do
         local displayName = faction.uniqueID:gsub("^%l", string.upper)
         ix.config.Add("Death Music - " .. displayName, "", "Death Music " .. faction.uniqueID, nil, {
             category = "FUNERALIS"
@@ -61,7 +61,6 @@ if SERVER then
         net.Send(player)
     end
 
-    -- Hook into config changes
     hook.Add("OnConfigSet", "FuneralisConfigUpdate", function(key, value)
         if key:find("Death Music -") or key == "defaultDeathMusic" then
             clearDeathMusicCache()
